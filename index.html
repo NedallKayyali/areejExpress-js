@@ -1016,7 +1016,8 @@
             const storeWhatsAppNumber = '970597758175';
 
             // 5. التعديل الأول: استخدام الرابط الرسمي الشامل wa.me
-            const whatsappURL = `https://wa.me{storeWhatsAppNumber}?text=${encodeURIComponent(message)}`;
+            const whatsappURL = `https://wa.me/${storeWhatsAppNumber}?text=${encodeURIComponent(message)}`;
+
 
             formMessage.innerHTML = `⏳ جاري تحويلك إلى واتساب لإرسال الطلب...`;
             formMessage.style.color = '#2ecc71';
