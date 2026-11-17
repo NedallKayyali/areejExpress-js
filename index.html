@@ -1060,6 +1060,39 @@
             }
         });
 
+        // =========================================================================================================
+        // 8. برمجة قائمة الجوال التفاعلية (Mobile Menu)
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+
+        menuToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+            // تغيير شكل الزر بين ☰ و ✕
+            menuToggle.textContent = navLinks.classList.contains("active") ? "✕" : "☰";
+        });
+
+        // إغلاق القائمة تلقائياً عند الضغط على أي رابط بداخلها
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("active");
+                menuToggle.textContent = "☰";
+            });
+        });
+        // ===============================================================================================================
+        // 9. زر العودة للأعلى عند التمرير
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        });
+
+        scrollTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
 
 
     </script>
