@@ -980,14 +980,13 @@
             const name = document.getElementById('customerName').value.trim();
             const phone = document.getElementById('customerPhone').value.trim();
 
-            // التحقق من تعبئة الحقول
             if (perfume === '' || name === '' || phone === '') {
                 formMessage.textContent = '⚠️ يرجى تعبئة جميع الحقول المطلوبة قبل تأكيد الطلب.';
                 formMessage.style.color = '#e74c3c';
                 return;
             }
 
-            // 2. جلب تفاصيل الحاسبة (المدينة، نوع التوصيل، والتكلفة)
+            // 2. جلب تفاصيل الحاسبة
             const citySelect = document.getElementById('citySelect');
             const cityName = citySelect.options[citySelect.selectedIndex].text;
 
@@ -996,46 +995,43 @@
 
             const finalCost = document.getElementById('totalCost').textContent;
 
-            // تجميع بيانات العميل في كائن واحد (Object)
+            // حفظ بيانات العميل في المتصفح
             const customerData = {
                 name: name,
                 phone: phone,
-                cityValue: citySelect.value // نحفظ قيمة المدينة لتحديدها تلقائياً لاحقاً
+                cityValue: citySelect.value
             };
-
-            // 1- تحويل الكائن إلى نص وحفظه في المتصفح باسم 'savedCustomer'
             localStorage.setItem('savedCustomer', JSON.stringify(customerData));
 
-            // 3. تنسيق رسالة الواتساب
+            // 3. تنسيق رسالة الواتساب (تم تصحيح الأقواس في السطر الأخير)
             const message = `مرحباً، أود تأكيد طلب توصيل عطر جديد:
 - *العطر المختار:* ${perfume}
 - *الاسم:* ${name}
 - *رقم الجوال:* ${phone}
 - *المدينة:* ${cityName}
 - *نوع التوصيل:* ${deliveryTypeName}
-- *(الاجمالي المطلوب (شامل التوصيل:* ${finalCost}`;
+- *الإجمالي المطلوب (شامل التوصيل):* ${finalCost}`;
 
-            // 4. رقم واتساب المتجر (ضع رقمك هنا بالصيغة الدولية بدون +)
+            // 4. رقم واتساب المتجر (تأكد هل حسابك 970 أم 972)
             const storeWhatsAppNumber = '970597758175';
 
-            // 5. إنشاء الرابط
-            // ✅ صحيح: مسار الإرسال الكامل مع علامة $ قبل القوس
+            // 5. التعديل الأول: استخدام الرابط الرسمي الشامل wa.me
+            const whatsappURL = `https://wa.me{storeWhatsAppNumber}?text=${encodeURIComponent(message)}`;
 
-            // استخدام بروتوكول التطبيق المباشر بدلاً من https://
-            const whatsappURL = `whatsapp://send?phone=${storeWhatsAppNumber}&text=${encodeURIComponent(message)}`;
-
-
-
-            // إظهار زر مباشر آمن يفتح في نافذة جديدة بدون قيود
-            formMessage.innerHTML = `✅ تم تجهيز طلبك بنجاح! <a href="${whatsappURL}" target="_blank" rel="noopener noreferrer" style="color: #25D366; text-decoration: underline; font-weight: bold;">اضغط هنا لإرسال الطلب عبر واتساب</a>`;
+            formMessage.innerHTML = `⏳ جاري تحويلك إلى واتساب لإرسال الطلب...`;
             formMessage.style.color = '#2ecc71';
 
-            // orderForm.reset();
-            // تفريغ خانة العطر وتصفير سعره مع الإبقاء على بيانات العميل جاهزة
+            // تفريغ خانة العطر وتصفير سعره
             document.getElementById('selectedPerfume').value = '';
             selectedPerfumePrice = 0;
             calculateDelivery();
+
+            // 6. التعديل الثاني: فتح واتساب مباشرة على الموبايل بدون خطوات إضافية
+            setTimeout(() => {
+                window.location.href = whatsappURL;
+            }, 500);
         });
+
         // ============================================================
 
 
