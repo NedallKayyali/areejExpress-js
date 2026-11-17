@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أريج إكسبريس | توصيل العطور الفاخرة بأمان</title>
+    <!-- استدعاء خط تجوال العربي الأنيق -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        :root {
+            --primary-color: #d4af37;
+            /* لون ذهبي فاخر */
+            --primary-hover: #b5952f;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-light: #ffffff;
+            --text-muted: #b3b3b3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* القسم الترحيبي */
+        .hero {
+            padding: 80px 0;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .badge {
+            background-color: rgba(212, 175, 55, 0.15);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            margin: 20px 0;
+            line-height: 1.3;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 450px;
+            height: 375px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+
+        /* قسم المميزات */
+        .features {
+            padding: 80px 0;
+            background-color: #161616;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #2a2a2a;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+        }
+
+        /* التجاوب مع شاشات الجوال */
+        @media (max-width: 768px) {
+
+            .nav-links,
+            .navbar .btn-primary {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* قسم الكتالوج */
+        .catalog {
+            padding: 80px 0;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--card-bg);
+            color: var(--text-light);
+            border: 1px solid #333;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: #000;
+            border-color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .perfumes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .perfume-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .perfume-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .perfume-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .perfume-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .perfume-category {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .perfume-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .perfume-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-details {
+            width: 100%;
+            padding: 10px;
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-details:hover {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+
+        /* النافذة المنبثقة (Modal) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            border: 1px solid var(--primary-color);
+            text-align: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .modal-content img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .notes-list {
+            background-color: #141414;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: right;
+        }
+
+        .notes-list p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        /* ================================================ */
+        /* قسم الحاسبة ونموذج الطلب */
+        .calculator-section {
+            padding: 80px 0;
+            background-color: #161616;
+        }
+
+        .calculator-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .calc-box,
+        .order-box {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #2a2a2a;
+        }
+
+        .calc-box h3,
+        .order-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group select,
+        .form-group input[type="text"],
+        .form-group input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #121212;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #121212;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            cursor: pointer;
+        }
+
+        .calc-result {
+            background-color: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .calc-result p {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .calc-result strong {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .full-width {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .form-message {
+            margin-top: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .form-message.error {
+            color: #ff4d4d;
+        }
+
+        .form-message.success {
+            color: #2ecc71;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid #2a2a2a;
+            color: var(--text-muted);
+        }
+
+        /* ===============================الجوال التفاعلية============================= */
+        /* أضف هذا السطر داخل وسم html أو في بداية الملف */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* استبدل قسم @media (max-width: 768px) القديم بهذا الكود المحدث */
+        @media (max-width: 768px) {
+            .navbar .btn-primary {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #161616;
+                padding: 20px 0;
+                text-align: center;
+                border-bottom: 1px solid var(--primary-color);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                margin: 12px 0;
+                font-size: 1.1rem;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- شريط التنقل -->
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="logo">أريج <span>إكسبريس</span></a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#features">مميزاتنا</a>
+                <a href="#catalog">كتالوج العطور</a>
+                <a href="#calculator">حاسبة التوصيل</a>
+            </nav>
+            <a href="#catalog" class="btn-primary">اطلب عطرك الآن</a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </header>
+
+    <!-- القسم الترحيبي -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="badge">توصيل مبرد 100%</span>
+                <h1>عطورك الفاخرة تصلك بأمان تام وكأنها خرجت للتو من المصنع</h1>
+                <p>نحن متخصصون في نقل وتوصيل أرقى العطور العالمية والشرقية في مركبات مكيفة تحافظ على نقاء الرائحة
+                    وثباتها.</p>
+                <div class="hero-buttons">
+                    <a href="#catalog" class="btn-primary">تصفح الكتالوج</a>
+                    <a href="#calculator" class="btn-secondary">احسب تكلفة التوصيل</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- استبدل الرابط بصورة عطر من جهازك لاحقاً -->
+                <img src="./images/flora.jpeg" alt="زجاجة عطر فاخرة">
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المميزات -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">لماذا تختار أريج إكسبريس؟</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">❄️</div>
+                    <h3>نقل مبرد ومعزول</h3>
+                    <p>نحمي جزيئات العطر من التلف الناتج عن الحرارة العالية أثناء الشحن.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">✨</div>
+                    <h3>ضمان الأصالة 100%</h3>
+                    <p>جميع العطور في كتالوجنا مستوردة من الوكلاء الرسميين مباشرة.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🎁</div>
+                    <h3>تغليف هدايا فاخر</h3>
+                    <p>نقدم خدمة تغليف مجانية مع بطاقة إهداء مخصصة لكل طلب.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم كتالوج العطور -->
+    <section id="catalog" class="catalog">
+        <div class="container">
+            <h2 class="section-title">كتالوج العطور المتاحة للتوصيل الفوري</h2>
+
+            <!-- أزرار الفلترة -->
+            <div class="filter-buttons" id="filterButtons">
+                <button class="filter-btn active" data-category="all">الكل</button>
+                <button class="filter-btn" data-category="oriental">عطور شرقية</button>
+                <button class="filter-btn" data-category="woody">عطور خشبية</button>
+                <button class="filter-btn" data-category="floral">عطور زهرية</button>
+            </div>
+
+            <!-- شبكة عرض العطور (ستُملأ تلقائياً بواسطة JS) -->
+            <div class="perfumes-grid" id="perfumesGrid"></div>
+        </div>
+    </section>
+
+    <!-- النافذة المنبثقة لتفاصيل العطر (Modal) -->
+    <div class="modal-overlay" id="perfumeModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- قسم حاسبة التوصيل والطلب السريع -->
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <h2 class="section-title">احسب تكلفة التوصيل واطلب الآن</h2>
+            <div class="calculator-wrapper">
+
+                <!-- الجانب الأول: حاسبة التكلفة -->
+                <div class="calc-box">
+                    <h3>حاسبة التوصيل الفوري</h3>
+                    <div class="form-group">
+                        <label for="citySelect">اختر المدينة:</label>
+                        <select id="citySelect">
+                            <option value="20" data-time="24 ساعة">القاهرة (داخل العاصمة)</option>
+                            <option value="35" data-time="48 ساعة">المدن الرئيسية الأخرى</option>
+                            <option value="50" data-time="3 أيام">المناطق البعيدة</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>نوع مركبة التوصيل:</label>
+                        <div class="radio-group">
+                            <label class="radio-card">
+                                <input type="radio" name="deliveryType" value="0" checked>
+                                <span>توصيل قياسي مكيف (مجاناً)</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="deliveryType" value="15">
+                                <span>توصيل VIP مبرد مستعجل (+15 جنيه)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="calc-result">
+                        <p>التكلفة التقديرية: <strong id="totalCost">20</strong> جنيه</p>
+                        <p>الوقت المتوقع للوصول: <strong id="estimatedTime">24 ساعة</strong></p>
+                    </div>
+                </div>
+
+                <!-- الجانب الثاني: نموذج الطلب السريع -->
+                <div class="order-box">
+                    <h3>نموذج طلب توصيل سريع</h3>
+                    <form id="orderForm" novalidate>
+                        <div class="form-group">
+                            <label for="selectedPerfume">العطر المختار:</label>
+                            <input type="text" id="selectedPerfume" placeholder="اختر عطراً من الكتالوج أو اكتب اسمه"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerName">الاسم الكامل:</label>
+                            <input type="text" id="customerName" placeholder="أدخل اسمك الكريم" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone">رقم الجوال:</label>
+                            <input type="tel" id="customerPhone" placeholder="مثال: 05XXXXXXXX" required>
+                        </div>
+                        <button type="submit" class="btn-primary full-width">تأكيد طلب التوصيل</button>
+                        <p id="formMessage" class="form-message"></p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <button id="scrollTopBtn" title="العودة للأعلى"
+        style="display:none; position:fixed; bottom:20px; left:20px; background:var(--primary-color); color:#000; border:none; border-radius:50%; width:45px; height:45px; font-size:1.2rem; font-weight:bold; cursor:pointer; z-index:99;">↑</button>
+
+    <!-- تذييل الصفحة (Footer) -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 أريج إكسبريس لتوصيل العطور الفاخرة. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- <script src="js/app.js"></script> -->
+    <script>
+        // 1. مصفوفة بيانات العطور
+        const perfumes = [
+            {
+                id: 1,
+                name: "عود ملكي فاخر",
+                price: 250, // تمت إضافة السعر هنا
+                category: "oriental",
+                categoryName: "عطور شرقية",
+                shortDesc: "مزيج دافئ من العود الكمبودي والعنبر الأصيل.",
+                image: "images/1.jpg",
+                topNotes: "الزعفران، الهيل",
+                heartNotes: "الورد الدمشقي، البخور",
+                baseNotes: "العود الكمبودي، العنبر، المسك",
+            },
+            {
+                id: 2,
+                name: "خشب الصندل الغامض",
+                price: 180, // تمت إضافة السعر هنا
+                category: "woody",
+                categoryName: "عطور خشبية",
+                shortDesc: "رائحة خشبية هادئة تمنحك حضوراً قوياً طوال اليوم.",
+                image: "images/2.jpg",
+                topNotes: "البرغموت، الفلفل الأسود",
+                heartNotes: "خشب الأرز، نجيل الهند",
+                baseNotes: "خشب الصندل، الباتشولي",
+            },
+            {
+                id: 3,
+                name: "نسيم الياسمين",
+                price: 160, // تمت إضافة السعر هنا
+                category: "floral",
+                categoryName: "عطور زهرية",
+                shortDesc: "انتعاش الزهور البيضاء مع لمسة ناعمة من الفانيليا.",
+                image: "images/3.jpg",
+                topNotes: "زهر البرتقال، اليوسفي",
+                heartNotes: "الياسمين، مسك الروم",
+                baseNotes: "الفانيليا، المسك الأبيض",
+            },
+            {
+                id: 4,
+                name: "ليالي العنبر",
+                price: 220, // تمت إضافة السعر هنا
+                category: "oriental",
+                categoryName: "عطور شرقية",
+                shortDesc: "عطر مسائي ثقيل مصمم للمناسبات الخاصة.",
+                image: "images/4.jpg",
+                topNotes: "القرفة، جوزة الطيب",
+                heartNotes: "الجلود، التبغ الحلو",
+                baseNotes: "العنبر الداكن، حبوب التونكا",
+            },
+        ];
+
+
+        // العناصر الأساسية في الصفحة
+        const perfumesGrid = document.getElementById("perfumesGrid");
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const perfumeModal = document.getElementById("perfumeModal");
+        const modalBody = document.getElementById("modalBody");
+        const closeModal = document.getElementById("closeModal");
+
+        // 2. دالة عرض العطور في الشبكة
+        function displayPerfumes(items) {
+            perfumesGrid.innerHTML = items
+                .map(
+                    (perfume) =>
+                        `
+        <div class="perfume-card">
+            <img src="${perfume.image}" alt="${perfume.name}">
+            <div class="perfume-info">
+                <div>
+                    <div class="perfume-category">${perfume.categoryName}</div>
+                    <h3>${perfume.name}</h3>
+                    <p>${perfume.shortDesc}</p>
+                    <span style="color: var(--primary-color)"><strong>${perfume.price}</strong> جنيه</span>
+                </div>
+                <button class="btn-details" onclick="openPerfumeModal(${perfume.id})">
+                    عرض الهرم العطري
+                </button>
+            </div>
+        </div>
+    `,
+                )
+                .join("");
+        }
+
+        // 3. تفعيل أزرار الفلترة
+        filterButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                // إزالة التفعيل من جميع الأزرار وإضافته للزر المضغوط
+                filterButtons.forEach((btn) => btn.classList.remove("active"));
+                button.classList.add("active");
+
+                const category = button.getAttribute("data-category");
+                if (category === "all") {
+                    displayPerfumes(perfumes);
+                } else {
+                    const filtered = perfumes.filter((p) => p.category === category);
+                    displayPerfumes(filtered);
+                }
+            });
+        });
+
+        // 4. فتح النافذة المنبثقة وعرض تفاصيل العطر
+        function openPerfumeModal(id) {
+            const perfume = perfumes.find((p) => p.id === id);
+            if (!perfume) return;
+
+            modalBody.innerHTML = `
+        <img src="${perfume.image}" alt="${perfume.name}">
+        <div class="perfume-category">${perfume.categoryName}</div>
+        <h2>${perfume.name}</h2>
+        <div class="notes-list">
+            <p><strong>إفتتاحية العطر:</strong> ${perfume.topNotes}</p>
+            <p><strong>قلب العطر:</strong> ${perfume.heartNotes}</p>
+            <p><strong>قاعدة العطر:</strong> ${perfume.baseNotes}</p>
+        </div>
+        <a href="#calculator" class="btn-primary" onclick = "selectPerfumeForOrder('${perfume.name}'); selectPerfumePriceForOrder(${perfume.id})">اطلب توصيل هذا العطر</a>
+    `;
+            perfumeModal.classList.add("active");
+        }
+
+        // إغلاق النافذة المنبثقة
+        function closePerfumeModal() {
+            perfumeModal.classList.remove("active");
+        }
+
+        closeModal.addEventListener("click", closePerfumeModal);
+        perfumeModal.addEventListener("click", (e) => {
+            if (e.target === perfumeModal) closePerfumeModal();
+        });
+
+        // عرض جميع العطور عند فتح الصفحة لأول مرة
+        displayPerfumes(perfumes);
+
+        // ============================================================
+
+        const citySelect = document.querySelector("#citySelect");
+        const deliveryRadios = document.querySelectorAll('input[name = "deliveryType"]');
+        const totalCostEl = document.querySelector("#totalCost");
+        const estimatedTimeEl = document.querySelector("#estimatedTime");
+
+        // الخطوة 1: إنشاء دالة تستقبل اسم العطر وتضعه في الحقل ثم تغلق النافذة
+        function selectPerfumeForOrder(perfumeName) {
+            // 1. وضع اسم العطر في حقل الإدخال
+            document.getElementById('selectedPerfume').value = perfumeName;
+
+            // 2. إغلاق النافذة المنبثقة
+            closePerfumeModal();
+
+            // 3. التركيز على حقل اسم العميل لتسهيل الإدخال
+            // setTimeout(() => {
+            //     document.getElementById('customerName').focus();
+            // }, 500)
+        }
+
+        // 1. متغير لتخزين سعر العطر المختار حالياً (يبدأ بصفر قبل الاختيار)
+        let selectedPerfumePrice = 0;
+
+        // 2. دالة يتم استدعاؤها عند الضغط على أي عطر أو فتح نافذته
+        function selectPerfumePriceForOrder(perfumeId) {
+            const perfume = perfumes.find(item => item.id == perfumeId);
+            if (perfume) {
+                selectedPerfumePrice = Number(perfume.price);
+                calculateDelivery(); // إعادة الحساب فوراً بعد اختيار العطر
+            }
+        }
+
+        function calculateDelivery() {
+            cityPrice = Number(citySelect.value);
+
+            let extraPrice = 0;
+            deliveryRadios.forEach((radio) => {
+                if (radio.checked) {
+                    extraPrice = Number(radio.value);
+                }
+            })
+            totalCostEl.textContent = selectedPerfumePrice + cityPrice + extraPrice;
+
+            const selectedOption = citySelect.options[citySelect.selectedIndex];
+            const time = selectedOption.getAttribute("data-time");
+            estimatedTimeEl.textContent = time;
+        }
+
+        citySelect.addEventListener('change', calculateDelivery);
+
+        deliveryRadios.forEach((radio) => {
+            radio.addEventListener("change", calculateDelivery);
+        })
+        // ============================================================
+
+
+        // الخطوة 2: استدعاء الدالة من زر "اطلب توصيل هذا العطر"
+
+        // ============================================================
+        // الخطوة 1: الإمساك بالنموذج وعنصر الرسالة
+        // const orderForm = document.querySelector("#orderForm");
+        // const orderMessage = document.querySelector("#orderMessage");
+
+        // الخطوة 2: كتابة دالة معالجة الطلب (submit)
+        // orderForm.addEventListener("submit", (event) => {
+
+        //     // 1. منع إعادة تحميل الصفحة عند إرسال النموذج
+        //     event.preventDefault();
+
+        //     // 2. جلب القيم المدخلة مع إزالة المسافات الزائدة (trim)
+        //     const perfume = document.getElementById('selectedPerfume').value.trim();
+        //     const name = document.getElementById('customerName').value.trim();
+        //     const phone = document.getElementById('customerPhone').value.trim();
+        //     const finalCost = document.getElementById('totalCost').textContent;
+
+        // 3. التحقق من أن جميع الحقول ممتلئة
+        //     if (perfume === '' || name === '' || phone === '') {
+        //         formMessage.textContent = '⚠️ يرجى تعبئة جميع الحقول المطلوبة قبل تأكيد الطلب.';
+        //         formMessage.style.color = '#e74c3c'; // لون أحمر للتنبيه
+        //         return; // إيقاف الدالة هنا وعدم إكمال الطلب
+        //     }
+
+        //     // 4. إظهار رسالة النجاح بتفاصيل الطلب
+        //     formMessage.textContent = `✅ شكراً لك يا ${name}! تم استلام طلبك لعطر (${perfume}) بتكلفة توصيل ${finalCost} جنيه، وسنتواصل معك على الرقم ${phone}.`;
+        //     formMessage.style.color = '#2ecc71'; // لون أخضر للنجاح
+
+        //     // 5. تفريغ حقول النموذج بعد الإرسال
+        //     orderForm.reset();
+        // })
+
+        const orderForm = document.getElementById('orderForm');
+        const formMessage = document.getElementById('formMessage');
+
+        orderForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // 1. جلب بيانات العميل من الحقول
+            const perfume = document.getElementById('selectedPerfume').value.trim();
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+
+            // التحقق من تعبئة الحقول
+            if (perfume === '' || name === '' || phone === '') {
+                formMessage.textContent = '⚠️ يرجى تعبئة جميع الحقول المطلوبة قبل تأكيد الطلب.';
+                formMessage.style.color = '#e74c3c';
+                return;
+            }
+
+            // 2. جلب تفاصيل الحاسبة (المدينة، نوع التوصيل، والتكلفة)
+            const citySelect = document.getElementById('citySelect');
+            const cityName = citySelect.options[citySelect.selectedIndex].text;
+
+            const checkedRadio = document.querySelector('input[name="deliveryType"]:checked');
+            const deliveryTypeName = checkedRadio.nextElementSibling.textContent;
+
+            const finalCost = document.getElementById('totalCost').textContent;
+
+            // تجميع بيانات العميل في كائن واحد (Object)
+            const customerData = {
+                name: name,
+                phone: phone,
+                cityValue: citySelect.value // نحفظ قيمة المدينة لتحديدها تلقائياً لاحقاً
+            };
+
+            // 1- تحويل الكائن إلى نص وحفظه في المتصفح باسم 'savedCustomer'
+            localStorage.setItem('savedCustomer', JSON.stringify(customerData));
+
+            // 3. تنسيق رسالة الواتساب
+            const message = `مرحباً، أود تأكيد طلب توصيل عطر جديد:
+- *العطر المختار:* ${perfume}
+- *الاسم:* ${name}
+- *رقم الجوال:* ${phone}
+- *المدينة:* ${cityName}
+- *نوع التوصيل:* ${deliveryTypeName}
+- *(الاجمالي المطلوب (شامل التوصيل:* ${finalCost}`;
+
+            // 4. رقم واتساب المتجر (ضع رقمك هنا بالصيغة الدولية بدون +)
+            const storeWhatsAppNumber = '970597758175';
+
+            // 5. إنشاء الرابط
+            // ✅ صحيح: مسار الإرسال الكامل مع علامة $ قبل القوس
+
+            // استخدام بروتوكول التطبيق المباشر بدلاً من https://
+            const whatsappURL = `whatsapp://send?phone=${storeWhatsAppNumber}&text=${encodeURIComponent(message)}`;
+
+
+
+            // إظهار زر مباشر آمن يفتح في نافذة جديدة بدون قيود
+            formMessage.innerHTML = `✅ تم تجهيز طلبك بنجاح! <a href="${whatsappURL}" target="_blank" rel="noopener noreferrer" style="color: #25D366; text-decoration: underline; font-weight: bold;">اضغط هنا لإرسال الطلب عبر واتساب</a>`;
+            formMessage.style.color = '#2ecc71';
+
+            // orderForm.reset();
+            // تفريغ خانة العطر وتصفير سعره مع الإبقاء على بيانات العميل جاهزة
+            document.getElementById('selectedPerfume').value = '';
+            selectedPerfumePrice = 0;
+            calculateDelivery();
+        });
+        // ============================================================
+
+
+        //2- دالة استرجاع البيانات عند فتح الموقع
+        window.addEventListener('DOMContentLoaded', function () {
+            const savedDataString = localStorage.getItem('savedCustomer');
+
+            // التحقق من وجود بيانات محفوظة مسبقاً
+            if (savedDataString) {
+                // تحويل النص المحفوظ مرة أخرى إلى كائن برمجي
+                const customerData = JSON.parse(savedDataString);
+
+                // تعبئة الحقول تلقائياً
+                if (customerData.name) {
+                    document.getElementById('customerName').value = customerData.name;
+                }
+                if (customerData.phone) {
+                    document.getElementById('customerPhone').value = customerData.phone;
+                }
+                if (customerData.cityValue) {
+                    document.getElementById('citySelect').value = customerData.cityValue;
+                    // إعادة حساب التوصيل بناءً على المدينة المحفوظة
+                    calculateDelivery();
+                }
+            }
+        });
+
+
+
+    </script>
+</body>
+
+</html>
