@@ -22,7 +22,7 @@ function setMenuState(open) {
     const fullHeight = navLinks.scrollHeight + "px";
     menuToggle.textContent = "☰";
 
-    const closeAnim = navLinks.animate(
+    const closeAnimate = navLinks.animate(
       [
         { height: fullHeight, opacity: 1, overflow: "hidden" },
         { height: "0px", opacity: 0, overflow: "hidden" },
@@ -33,7 +33,7 @@ function setMenuState(open) {
       },
     );
 
-    closeAnim.onfinish = () => {
+    closeAnimate.onfinish = () => {
       navLinks.classList.remove("active");
     };
   }
@@ -77,7 +77,19 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
 - الانتظار حتى النهاية (onfinish): ننتظر انتهاء الانكماش البصري تماماً، ثم نحذف كلاس active لإخفائها نهائياً حتى لا تختفي فجأة قبل رؤية الحركة.
 
 3. متى يعمل هذا الكود؟ (الأحداث)
-- عند الضغط على الزر: يفحص هل القائمة مفتوحة أم لا، ويرسل عكس حالتها الحالية للدالة.
-- عند الضغط على أي رابط بداخلها: يرسل فوراً أمر الإغلاق (false) لكي تنطوي القائمة بنعومة.
+1. menuToggle.addEventListener("click", () => { ... })
+	• يربط حدث النقر (click) بزر القائمة (menuToggle).
+	• عندما يضغط المستخدم على هذا الزر، يتم تنفيذ الكود الموجود داخل الأقواس.
+2. const isCurrentlyOpen = navLinks.classList.contains("active");
+	• يتحقق مما إذا كانت القائمة (navLinks) مفتوحة حالياً أم لا.
+	• يقوم بذلك عبر فحص وجود كلاس باسم "active" داخل عنصر القائمة:
+		• إذا كان الكلاس موجوداً، تكون النتيجة true (القائمة مفتوحة).
+		• إذا لم يكن موجوداً، تكون النتيجة false (القائمة مغلقة).
+3. setMenuState(!isCurrentlyOpen);
+	• يستدعي دالة أخرى اسمها setMenuState لتغيير حالة القائمة.
+	• علامة التعجب ! تعني العكس:
+		• إذا كانت القائمة مفتوحة (true)، فسيتم إرسال false لإغلاقها.
+		• إذا كانت مغلقة (false)، فسيتم إرسال true لفتحها.
+الخلاصة: الكود يعمل كمفتاح تبديل (Toggle)يفتح القائمة إذا كانت مغلقة، ويغلقها إذا كانت مفتوحة 
 ====================================================================
 */
