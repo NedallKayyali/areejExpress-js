@@ -870,7 +870,13 @@
             perfumeModal.classList.remove("active");
         }
 
+        // اغلاق النافذة المنبثقة من الزر (✕)
         closeModal.addEventListener("click", closePerfumeModal);
+
+        /* هذا الكود يقوم بإغلاق النافذة المنبثقة (Modal)
+تلقائياً عندما يضغط المستخدم في أي مكان خارج صندوق المحتوى  
+(أي على الخلفية السوداء الشفافة المحيطة بالنافذة)
+*/
         perfumeModal.addEventListener("click", (e) => {
             if (e.target === perfumeModal) closePerfumeModal();
         });
@@ -1091,7 +1097,7 @@
         });
 
         scrollTopBtn.addEventListener("click", () => {
-            window.scrollTo({top: 0, behavior: "smooth"});
+            window.scrollTo({ top: 0, behavior: "smooth" });
         });
 
 

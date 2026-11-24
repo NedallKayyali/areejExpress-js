@@ -71,7 +71,7 @@ function displayPerfumes(items) {
                   <p>${item.shortDesc}</p>
               </div>
               <div class="perfume-price"><strong>${item.price}</strong><span style="color: #d4af37"> جنيه</span></div>
-              <button class="btn-details">عرض الهرم العطري</button>
+              <button class="btn-details" onclick="openPerfumeModal(${item.id})">عرض الهرم العطري</button>
           </div>
         </div>
       `;
@@ -80,7 +80,7 @@ function displayPerfumes(items) {
 }
 
 /* =================================================================== 
-الخطوة رقم (2) انشاء الفلترة  
+                الخطوة رقم (2) انشاء الفلترة  
    =================================================================== */
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -97,4 +97,46 @@ filterButtons.forEach((button) => {
   });
 });
 
+/* =================================================================== 
+الخطوة رقم (3) انشاء الموديل  
+=================================================================== */
+const perfumeModal = document.getElementById("perfumeModal");
+const modalBody = document.getElementById("modalBody");
+const closeModal = document.getElementById("closeModal");
+
+function openPerfumeModal(id) {
+  const perfume = perfumes.find((p) => p.id === id);
+  if (!perfume) return;
+
+  modalBody.innerHTML = `
+        <img src="${perfume.image}" alt="${perfume.name}">
+        <div class="perfume-category">${perfume.categoryName}</div>
+        <h2>${perfume.name}</h2>
+        <div class="notes-list">
+          <p><strong>إفتتاحية العطر:</strong> ${perfume.topNotes}</p>
+          <p><strong>قلب العطر:</strong> ${perfume.heartNotes}</p>
+          <p><strong>قاعدة العطر:</strong> ${perfume.baseNotes}</p>
+        </div>
+        <a href="#calculator" class="btn-primary" onclick="closePerfumeModal()">اطلب توصيل هذا العطر</a>
+        `;
+  perfumeModal.classList.add("active");
+}
+
+// إغلاق النافذة المنبثقة
+function closePerfumeModal() {
+  perfumeModal.classList.remove("active");
+}
+
+// اغلاق النافذة المنبثقة من الزر (✕)
+closeModal.addEventListener("click", closePerfumeModal);
+
+/* هذا الكود يقوم بإغلاق النافذة المنبثقة (Modal)
+تلقائياً عندما يضغط المستخدم في أي مكان خارج صندوق المحتوى  
+(أي على الخلفية السوداء الشفافة المحيطة بالنافذة)
+*/
+perfumeModal.addEventListener("click", (e) => {
+  if (e.target === perfumeModal) closePerfumeModal();
+});
+
+// عرض جميع العطور عند فتح الصفحة لأول مرة
 displayPerfumes(perfumes);
