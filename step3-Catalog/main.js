@@ -52,20 +52,49 @@ const perfumes = [
 
 // العناصر الأساسية في الصفحة
 const perfumesGrid = document.getElementById("perfumesGrid");
+const filterButtons = document.querySelectorAll(".filter-btn");
 
-for (let i = 0; i < perfumes.length; i++) {
-  perfumesGrid.innerHTML += `
-    <div class="perfume-card">
-        <img src="${perfumes[i].image}">
-        <div class="perfume-info">
-            <div>
-                <div class="perfume-category">${perfumes[i].categoryName}</div>
-                <h3>${perfumes[i].name}</h3>
-                <p>${perfumes[i].shortDesc}</p>
-                </div>
-                <div><strong>${perfumes[i].price}</strong></div>
-            <button class="btn-details">عرض الهرم العطري</button>
+/* =================================================================== 
+الخطوة رقم (1) عمل لوب علي عناصر المصفوفة وعرضها بالصفحة باستخدام الدوم
+نريد الان وضع اللوب داخل دالة لكي تسهل استخدامها في اماكن اخري
+   =================================================================== */
+function displayPerfumes(items) {
+  perfumesGrid.innerHTML = items
+    .map((item) => {
+      return `
+        <div class="perfume-card">
+          <img src="${item.image}">
+          <div class="perfume-info">
+              <div class="perfume-text">
+                  <div class="perfume-category">${item.categoryName}</div>
+                  <h3>${item.name}</h3>
+                  <p>${item.shortDesc}</p>
+              </div>
+              <div class="perfume-price"><strong>${item.price}</strong><span style="color: #d4af37"> جنيه</span></div>
+              <button class="btn-details">عرض الهرم العطري</button>
+          </div>
         </div>
-    </div>
-    `;
+      `;
+    })
+    .join("");
 }
+
+/* =================================================================== 
+الخطوة رقم (2) انشاء الفلترة  
+   =================================================================== */
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    filterButtons.forEach((btn) => btn.classList.remove("active"));
+    button.classList.add("active");
+
+    const category = button.dataset.category;
+    if (category === "all") {
+      displayPerfumes(perfumes);
+    } else {
+      const filtered = perfumes.filter((p) => p.category === category);
+      displayPerfumes(filtered);
+    }
+  });
+});
+
+displayPerfumes(perfumes);
