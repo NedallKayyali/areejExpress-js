@@ -860,7 +860,7 @@
             <p><strong>قلب العطر:</strong> ${perfume.heartNotes}</p>
             <p><strong>قاعدة العطر:</strong> ${perfume.baseNotes}</p>
         </div>
-        <a href="#calculator" class="btn-primary" onclick = "selectPerfumeForOrder('${perfume.name}'); selectPerfumePriceForOrder(${perfume.id})">اطلب توصيل هذا العطر</a>
+        <a href="#calculator" class="btn-primary" data-perfume="${perfume.name}" onclick = "selectPerfumeForOrder(this.dataset.perfume); selectPerfumePriceForOrder(${perfume.id})">اطلب توصيل هذا العطر</a>
     `;
             perfumeModal.classList.add("active");
         }

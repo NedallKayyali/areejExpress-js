@@ -98,7 +98,7 @@ filterButtons.forEach((button) => {
 });
 
 /* =================================================================== 
-الخطوة رقم (3) انشاء الموديل  
+              الخطوة رقم (3) انشاء الموديل  
 =================================================================== */
 const perfumeModal = document.getElementById("perfumeModal");
 const modalBody = document.getElementById("modalBody");
@@ -117,7 +117,7 @@ function openPerfumeModal(id) {
           <p><strong>قلب العطر:</strong> ${perfume.heartNotes}</p>
           <p><strong>قاعدة العطر:</strong> ${perfume.baseNotes}</p>
         </div>
-        <a href="#calculator" class="btn-primary" onclick="closePerfumeModal()">اطلب توصيل هذا العطر</a>
+        <a href="#calculator" class="btn-primary" onclick="selectPerfumeForOrder(this.dataset.perfume)" data-perfume= "${perfume.name}">اطلب توصيل هذا العطر</a>
         `;
   perfumeModal.classList.add("active");
 }
@@ -140,3 +140,26 @@ perfumeModal.addEventListener("click", (e) => {
 
 // عرض جميع العطور عند فتح الصفحة لأول مرة
 displayPerfumes(perfumes);
+
+/*===================================================================================
+              الخطوه (3) انشاء دالة لنقل اسم المنتج الي حقل العطر المختار      
+====================================================================================*/
+function selectPerfumeForOrder(perfumeName) {
+  document.getElementById("selectedPerfume").value = perfumeName;
+
+  closePerfumeModal();
+}
+
+/*===================================================================================
+              الخطوه (4) انشاء متغير لتخزين سعر العطر المختار
+             ثانيا-انشاء دالة يتم استدعائها عند اختيار اي عطر  
+====================================================================================*/
+let selectedPerfumePrice = 0;
+
+function selectedPerfumePriceForOrder(perfumeId) {
+  const perfume = perfumes.find((item) => item.id == perfumeId);
+  if (perfume) {
+    selectPerfumeForOrder = Number(perfume.price);
+  }
+  console.log(selectPerfumeForOrder);
+}
