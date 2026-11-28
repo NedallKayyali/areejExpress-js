@@ -898,11 +898,6 @@
 
             // 2. إغلاق النافذة المنبثقة
             closePerfumeModal();
-
-            // 3. التركيز على حقل اسم العميل لتسهيل الإدخال
-            // setTimeout(() => {
-            //     document.getElementById('customerName').focus();
-            // }, 500)
         }
 
         // 1. متغير لتخزين سعر العطر المختار حالياً (يبدأ بصفر قبل الاختيار)
@@ -939,42 +934,6 @@
             radio.addEventListener("change", calculateDelivery);
         })
         // ============================================================
-
-
-        // الخطوة 2: استدعاء الدالة من زر "اطلب توصيل هذا العطر"
-
-        // ============================================================
-        // الخطوة 1: الإمساك بالنموذج وعنصر الرسالة
-        // const orderForm = document.querySelector("#orderForm");
-        // const orderMessage = document.querySelector("#orderMessage");
-
-        // الخطوة 2: كتابة دالة معالجة الطلب (submit)
-        // orderForm.addEventListener("submit", (event) => {
-
-        //     // 1. منع إعادة تحميل الصفحة عند إرسال النموذج
-        //     event.preventDefault();
-
-        //     // 2. جلب القيم المدخلة مع إزالة المسافات الزائدة (trim)
-        //     const perfume = document.getElementById('selectedPerfume').value.trim();
-        //     const name = document.getElementById('customerName').value.trim();
-        //     const phone = document.getElementById('customerPhone').value.trim();
-        //     const finalCost = document.getElementById('totalCost').textContent;
-
-        // 3. التحقق من أن جميع الحقول ممتلئة
-        //     if (perfume === '' || name === '' || phone === '') {
-        //         formMessage.textContent = '⚠️ يرجى تعبئة جميع الحقول المطلوبة قبل تأكيد الطلب.';
-        //         formMessage.style.color = '#e74c3c'; // لون أحمر للتنبيه
-        //         return; // إيقاف الدالة هنا وعدم إكمال الطلب
-        //     }
-
-        //     // 4. إظهار رسالة النجاح بتفاصيل الطلب
-        //     formMessage.textContent = `✅ شكراً لك يا ${name}! تم استلام طلبك لعطر (${perfume}) بتكلفة توصيل ${finalCost} جنيه، وسنتواصل معك على الرقم ${phone}.`;
-        //     formMessage.style.color = '#2ecc71'; // لون أخضر للنجاح
-
-        //     // 5. تفريغ حقول النموذج بعد الإرسال
-        //     orderForm.reset();
-        // })
-
         const orderForm = document.getElementById('orderForm');
         const formMessage = document.getElementById('formMessage');
 
@@ -995,7 +954,6 @@
             // 2. جلب تفاصيل الحاسبة
             const citySelect = document.getElementById('citySelect');
             const cityName = citySelect.options[citySelect.selectedIndex].text;
-
             const checkedRadio = document.querySelector('input[name="deliveryType"]:checked');
             const deliveryTypeName = checkedRadio.nextElementSibling.textContent;
 
@@ -1011,12 +969,13 @@
 
             // 3. تنسيق رسالة الواتساب (تم تصحيح الأقواس في السطر الأخير)
             const message = `مرحباً، أود تأكيد طلب توصيل عطر جديد:
-- *العطر المختار:* ${perfume}
-- *الاسم:* ${name}
-- *رقم الجوال:* ${phone}
-- *المدينة:* ${cityName}
-- *نوع التوصيل:* ${deliveryTypeName}
-- *الإجمالي المطلوب (شامل التوصيل):* ${finalCost}`;
+                            - *العطر المختار:* ${perfume}
+                            - *الاسم:* ${name}
+                            - *رقم الجوال:* ${phone}
+                            - *المدينة:* ${cityName}
+                            - *نوع التوصيل:* ${deliveryTypeName}
+                            - *الإجمالي المطلوب (شامل التوصيل):* ${finalCost}
+                            `;
 
             // 4. رقم واتساب المتجر (تأكد هل حسابك 970 أم 972)
             const storeWhatsAppNumber = '970597758175';
@@ -1099,8 +1058,6 @@
         scrollTopBtn.addEventListener("click", () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
-
-
     </script>
 </body>
 

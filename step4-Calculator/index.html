@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator | Section</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- شريط التنقل -->
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="logo">أريج <span>إكسبريس</span></a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#features">مميزاتنا</a>
+                <a href="#catalog">كتالوج العطور</a>
+                <a href="#calculator">حاسبة التوصيل</a>
+            </nav>
+            <a href="#catalog" class="btn-primary">اطلب عطرك الآن</a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </header>
+
+    <!-- القسم الترحيبي -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="badge">توصيل مبرد 100%</span>
+                <h1>عطورك الفاخرة تصلك بأمان تام وكأنها خرجت للتو من المصنع</h1>
+                <p>نحن متخصصون في نقل وتوصيل أرقى العطور العالمية والشرقية في مركبات مكيفة تحافظ على نقاء الرائحة
+                    وثباتها.</p>
+                <div class="hero-buttons">
+                    <a href="#catalog" class="btn-primary">تصفح الكتالوج</a>
+                    <a href="#calculator" class="btn-secondary">احسب تكلفة التوصيل</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- استبدل الرابط بصورة عطر من جهازك لاحقاً -->
+                <img src="./images/flora.jpeg" alt="زجاجة عطر فاخرة">
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المميزات -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">لماذا تختار أريج إكسبريس؟</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">❄️</div>
+                    <h3>نقل مبرد ومعزول</h3>
+                    <p>نحمي جزيئات العطر من التلف الناتج عن الحرارة العالية أثناء الشحن.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">✨</div>
+                    <h3>ضمان الأصالة 100%</h3>
+                    <p>جميع العطور في كتالوجنا مستوردة من الوكلاء الرسميين مباشرة.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🎁</div>
+                    <h3>تغليف هدايا فاخر</h3>
+                    <p>نقدم خدمة تغليف مجانية مع بطاقة إهداء مخصصة لكل طلب.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم كتالوج العطور -->
+    <section id="catalog" class="catalog">
+        <div class="container">
+            <h2 class="section-title">كتالوج العطور المتاحة للتوصيل الفوري</h2>
+
+            <!-- أزرار الفلترة -->
+            <div class="filter-buttons" id="filterButtons">
+                <button class="filter-btn active" data-category="all">الكل</button>
+                <button class="filter-btn" data-category="oriental">عطور شرقية</button>
+                <button class="filter-btn" data-category="woody">عطور خشبية</button>
+                <button class="filter-btn" data-category="floral">عطور زهرية</button>
+            </div>
+
+            <!-- شبكة عرض العطور (ستُملأ تلقائياً بواسطة JS) -->
+            <div class="perfumes-grid" id="perfumesGrid"></div>
+        </div>
+    </section>
+
+    <!-- النافذة المنبثقة لتفاصيل العطر (Modal) -->
+    <div class="modal-overlay" id="perfumeModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- قسم حاسبة التوصيل والطلب السريع -->
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <h2 class="section-title">احسب تكلفة التوصيل واطلب الآن</h2>
+            <div class="calculator-wrapper">
+
+                <!-- الجانب الأول: حاسبة التكلفة -->
+                <div class="calc-box">
+                    <h3>حاسبة التوصيل الفوري</h3>
+                    <div class="form-group">
+                        <label for="citySelect">اختر المدينة:</label>
+                        <select id="citySelect">
+                            <option value="20" data-time="24 ساعة">القاهرة (داخل العاصمة)</option>
+                            <option value="35" data-time="48 ساعة">المدن الرئيسية الأخرى</option>
+                            <option value="50" data-time="3 أيام">المناطق البعيدة</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>نوع مركبة التوصيل:</label>
+                        <div class="radio-group">
+                            <label class="radio-card">
+                                <input type="radio" name="deliveryType" value="0" checked>
+                                <span>توصيل قياسي مكيف (مجاناً)</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="deliveryType" value="15">
+                                <span>توصيل VIP مبرد مستعجل (+15 جنيه)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="calc-result">
+                        <p>التكلفة التقديرية: <strong id="totalCost">20</strong> جنيه</p>
+                        <p>الوقت المتوقع للوصول: <strong id="estimatedTime">24 ساعة</strong></p>
+                    </div>
+                </div>
+
+                <!-- الجانب الثاني: نموذج الطلب السريع -->
+                <div class="order-box">
+                    <h3>نموذج طلب توصيل سريع</h3>
+                    <form id="orderForm" novalidate>
+                        <div class="form-group">
+                            <label for="selectedPerfume">العطر المختار:</label>
+                            <input type="text" id="selectedPerfume" placeholder="اختر عطراً من الكتالوج أو اكتب اسمه"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerName">الاسم الكامل:</label>
+                            <input type="text" id="customerName" placeholder="أدخل اسمك الكريم" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone">رقم الجوال:</label>
+                            <input type="tel" id="customerPhone" placeholder="مثال: 05XXXXXXXX" required>
+                        </div>
+                        <button type="submit" class="btn-primary full-width">تأكيد طلب التوصيل</button>
+                        <p id="formMessage" class="form-message"></p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <button id="scrollTopBtn" title="العودة للأعلى"
+        style="display:none; position:fixed; bottom:20px; left:20px; background:var(--primary-color); color:#000; border:none; border-radius:50%; width:45px; height:45px; font-size:1.2rem; font-weight:bold; cursor:pointer; z-index:99;">↑</button>
+
+    <!-- تذييل الصفحة (Footer) -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 أريج إكسبريس لتوصيل العطور الفاخرة. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src=" ./main.js"></script>
+
+</body>
+
+</html>
